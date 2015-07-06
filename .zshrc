@@ -85,6 +85,8 @@ alias ggpnpp='for d in $GH_BASE/*/; do (cd "$d" && ggpnp) &; done; wait;'
 alias gstt='for d in $GH_BASE/*/; do (cd "$d" && echo "\033[34m--- "$d" ---\033[0m" && gst && echo ""); done'
 alias gstl='git stash list'
 
+function gcbb { for d in $GH_BASE/*/; do (cd "$d" && gco -- development && gcb $1 && gp -u) &; done; wait; }
+
 # Delete branches which are merged into development locally ignoring development and master branches
 alias gbda='git branch --merged development | grep -vE "^\*?\s*(development|master)$" | xargs -n 1 git branch -d'
 # Delete branches which are merged into development remotely ignoring development and master branches
