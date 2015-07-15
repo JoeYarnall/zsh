@@ -71,8 +71,8 @@ fi
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Goldhawk repo base directory
-export GH_BASE="/cygdrive/c/Users/Joe-Goldhawk/Repos"
+# Repo base directory
+export BASE="/cygdrive/c/Users/Joe-Goldhawk/Repos"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -80,18 +80,20 @@ export GH_BASE="/cygdrive/c/Users/Joe-Goldhawk/Repos"
 # For a full list of active aliases, run `alias`.
 
 # Extra git alaises to make working with multiple repos easier
-alias gll='for d in $GH_BASE/*/; do (cd "$d" && gl) &; done; wait;'
-alias ggpnpp='for d in $GH_BASE/*/; do (cd "$d" && ggpnp) &; done; wait;'
-alias gstt='for d in $GH_BASE/*/; do (cd "$d" && echo "\033[34m--- "$d" ---\033[0m" && gst && echo ""); done'
-alias gbaa='for d in $GH_BASE/*/; do (cd "$d" && echo "\033[34m--- "$d" ---\033[0m" && gba && echo ""); done'
-alias gtidy='for d in $GH_BASE/*/; do (cd "$d" && gbda && gfp && gbdar) &; done; wait;'
+alias gll='for d in $BASE/*/; do (cd "$d" && gl) &; done; wait;'
+alias ggpnpp='for d in $BASE/*/; do (cd "$d" && ggpnp) &; done; wait;'
+alias gstt='for d in $BASE/*/; do (cd "$d" && echo "\033[34m--- "$d" ---\033[0m" && gst && echo ""); done'
+alias gbaa='for d in $BASE/*/; do (cd "$d" && echo "\033[34m--- "$d" ---\033[0m" && gba && echo ""); done'
+alias gtidy='for d in $BASE/*/; do (cd "$d" && gbda && gfp && gbdar) &; done; wait;'
 
+# List all things in the stash
 alias gstl='git stash list'
 
-function gcbb { for d in $GH_BASE/*/; do (cd "$d" && gco development && gcb $1 && gp -u) &; done; wait; }
+function gcbb { for d in $BASE/*/; do (cd "$d" && gco development && gcb $1 && gp -u) &; done; wait; }
 
 # Delete branches which are merged into development locally ignoring development and master branches
 alias gbda='git branch --merged development | grep -vE "^\*?\s*(development|master)$" | xargs -n 1 git branch -d'
+
 # Delete branches which are merged into development remotely ignoring development and master branches
 alias gbdar='git branch -r --merged origin/development | grep -vE "origin/(master|development)$" | perl -npe "s%^\s*origin/%%" | xargs -n 1 git push origin --delete'
 
@@ -102,4 +104,4 @@ alias gfp='git fetch -p origin'
 alias c='clear'
 
 # Change directory to the repos folder when done
-cd $GH_BASE
+cd $BASE
