@@ -8,7 +8,7 @@ alias gtidy='for d in $BASE/*/; do (cd "$d" && gfp && gbda && gbdar) &; done; wa
 # List all things in the stash
 alias gstl='git stash list'
 
-function gcbb { for d in $BASE/*/; do (cd "$d" && gco development && gcb $1 && gp -u) &; done; wait; }
+function gcbb { gco development && gcb $1 && gp -u }
 
 # Delete branches which are merged into development locally ignoring development and master branches
 alias gbda='git branch --merged development | grep -vE "^\*?\s*(development|master)$" | xargs -n 1 git branch -d'
