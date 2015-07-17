@@ -1,0 +1,23 @@
+# Extra git alaises to make working with multiple repos easier
+alias gll='for d in $BASE/*/; do (cd "$d" && gl) &; done; wait;'
+alias ggpnpp='for d in $BASE/*/; do (cd "$d" && ggpnp) &; done; wait;'
+alias gstt='for d in $BASE/*/; do (cd "$d" && echo "\033[34m--- "$d" ---\033[0m" && gst && echo ""); done'
+alias gbaa='for d in $BASE/*/; do (cd "$d" && echo "\033[34m--- "$d" ---\033[0m" && gba && echo ""); done'
+alias gtidy='for d in $BASE/*/; do (cd "$d" && gfp && gbda && gbdar) &; done; wait;'
+
+# List all things in the stash
+alias gstl='git stash list'
+
+function gcbb { for d in $BASE/*/; do (cd "$d" && gco development && gcb $1 && gp -u) &; done; wait; }
+
+# Delete branches which are merged into development locally ignoring development and master branches
+alias gbda='git branch --merged development | grep -vE "^\*?\s*(development|master)$" | xargs -n 1 git branch -d'
+
+# Delete branches which are merged into development remotely ignoring development and master branches
+alias gbdar='git branch -r --merged origin/development | grep -vE "origin/(master|development)$" | perl -npe "s%^\s*origin/%%" | xargs -n 1 git push origin --delete'
+
+# Removes branches that have been deleted in the origin remote repository
+alias gfp='git fetch -p origin'
+
+# Short hand for clear
+alias c='clear'

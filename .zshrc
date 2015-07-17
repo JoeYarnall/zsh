@@ -5,7 +5,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="babun"
+ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -71,37 +71,14 @@ fi
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
-# Repo base directory
-export BASE="/cygdrive/c/Users/Joe-Goldhawk/Repos"
+# Set Exports
+. ./exports
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
+. ./alias
 
-# Extra git alaises to make working with multiple repos easier
-alias gll='for d in $BASE/*/; do (cd "$d" && gl) &; done; wait;'
-alias ggpnpp='for d in $BASE/*/; do (cd "$d" && ggpnp) &; done; wait;'
-alias gstt='for d in $BASE/*/; do (cd "$d" && echo "\033[34m--- "$d" ---\033[0m" && gst && echo ""); done'
-alias gbaa='for d in $BASE/*/; do (cd "$d" && echo "\033[34m--- "$d" ---\033[0m" && gba && echo ""); done'
-alias gtidy='for d in $BASE/*/; do (cd "$d" && gbda && gfp && gbdar) &; done; wait;'
-
-# List all things in the stash
-alias gstl='git stash list'
-
-function gcbb { for d in $BASE/*/; do (cd "$d" && gco development && gcb $1 && gp -u) &; done; wait; }
-
-# Delete branches which are merged into development locally ignoring development and master branches
-alias gbda='git branch --merged development | grep -vE "^\*?\s*(development|master)$" | xargs -n 1 git branch -d'
-
-# Delete branches which are merged into development remotely ignoring development and master branches
-alias gbdar='git branch -r --merged origin/development | grep -vE "origin/(master|development)$" | perl -npe "s%^\s*origin/%%" | xargs -n 1 git push origin --delete'
-
-# Removes branches that have been deleted in the origin remote repository
-alias gfp='git fetch -p origin'
-
-# Short hand for clear
-alias c='clear'
-
-# Change directory to the repos folder when done
-cd $BASE
+# Change directory to the $BASE folder if the variable exists otherwise warn
+if [ -z ${BASE+x} ]; then echo "BASE is unset"; else cd $BASE; fi
